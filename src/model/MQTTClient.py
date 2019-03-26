@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 from threading import Thread
 
 
-class MQTT_Client:
+class MQTTClient:
 
     def __init__(self):
         self.client = mqtt.Client()
@@ -20,11 +20,11 @@ class MQTT_Client:
 
         self.client.connect(broker, port)
 
-        # TODO: Possibly replace '#' with correct channgel
+        # TODO: Possibly replace '#' with correct channel
         self.client.subscribe("#")
 
         try:
-            thread = Thread(target=self.client.loop_forever())
+            thread = Thread(target=self.client.loop_start())
             thread.start()
         except KeyboardInterrupt:
             print('Interrupted')
