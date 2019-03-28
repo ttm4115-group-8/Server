@@ -6,4 +6,7 @@
 {% block content %}
     <h1>Graf</h1>
     <p>Denne siden skal vise graf-data som vi får fra Raspberry Pi-en.</p>
+    {% if val is defined %}
+        val
+    {% endif %}
 {% endblock %}

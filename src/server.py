@@ -1,24 +1,33 @@
-from flask import Flask, render_template
-from src.model.MQTTClient import MQTTClient
+from flask import Flask, render_template, redirect, url_for
+from flask_mqtt import Mqtt
 
 app = Flask(__name__, template_folder='./views')
+app.config['MQTT_BROKER_URL'] = '129.241.208.68'
+app.config['MQTT_BROKER_PORT'] = 1883
+app.config['MQTT_REFRESH_TIME'] = 1.0
+
+mqtt = Mqtt(app)
 
 
-def start_application():
-    app.run()
+@mqtt.on_connect()
+def handle_connect(client, userdata, flags, rc):
+    mqtt.subscribe('#')
 
 
-def start_mqtt_client():
-    broker, port = 'localhost', 1883
-    my_client = MQTTClient()
-    my_client.start(broker, port)
+@mqtt.on_message()
+def handle_mqtt_message(client, userdata, message):
+    data = dict(
+        topic=message.topic,
+        payload=message.payload.decode()
+    )
+
+    update_template()
+
+
+def update_template():
+    return redirect(url_for('.index', val="HEY"))
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('graph.html')
-
-
-if __name__ == '__main__':
-    start_mqtt_client()
-    start_application()
