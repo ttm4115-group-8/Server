@@ -2,6 +2,12 @@
 # Created by https://www.gitignore.io/api/macos,flask,python,pycharm,windows,jupyternotebook,jupyternotebooks
 # Edit at https://www.gitignore.io/?templates=macos,flask,python,pycharm,windows,jupyternotebook,jupyternotebooks
 
+### VENV ###
+komsys/
+
+### DB ###
+src/quickstart_app.sqlite
+
 ### Flask ###
 instance/*
 !instance/.gitignore
