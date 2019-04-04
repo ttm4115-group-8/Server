@@ -15,3 +15,23 @@ Start the server:
 ```
 python server.py
 ```
+
+
+## Access DB and view tables:
+Connect to the DB
+```
+
+sqlite3 quickstart_app.sqlite
+
+```
+
+display tables
+
+```
+.tables
+```
+
+Show table scheme
+```
+.schema users
+```
