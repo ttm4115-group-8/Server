@@ -73,7 +73,6 @@ def user_page(username='test'):
     return render_template('user_page.html', username=username)
 
 
-## TODO: Change routing to /user/<username>/graph
 @app.route('/user/<username>/graph')
 @login_required
 def graph(username):
