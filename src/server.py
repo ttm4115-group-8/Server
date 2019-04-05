@@ -9,7 +9,7 @@ from flask_user import login_required, UserManager, UserMixin, current_user
 eventlet.monkey_patch()
 
 app = Flask(__name__, template_folder='./views')
-app.config['MQTT_BROKER_URL'] = '129.241.208.68'
+app.config['MQTT_BROKER_URL'] = 'localhost'
 app.config['MQTT_BROKER_PORT'] = 1883
 app.config['MQTT_REFRESH_TIME'] = 1.0
 app.config['USER_ENABLE_EMAIL'] = False
@@ -74,10 +74,10 @@ def user_page(username='test'):
 
 
 ## TODO: Change routing to /user/<username>/graph
-@app.route('/graph')
+@app.route('/user/<username>/graph')
 @login_required
-def graph():
-    return render_template('graph.html')
+def graph(username):
+    return render_template('graph.html', username=username)
 
 
 @mqtt.on_log()

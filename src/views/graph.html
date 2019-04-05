@@ -11,7 +11,6 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="{{ url_for('static', filename='epoch.min.js') }}"></script>
 
-
 <h1>Graf</h1>
 <p>Denne siden skal vise graf-data som vi får fra Raspberry Pi-en.</p>
 
@@ -22,9 +21,6 @@
 <div id="movement_chart_div" class="epoch" style="width: 100%; height: 200px"></div>
 
 <div id="subscribe_messages"></div>
-{% if val is defined %}
-{{ val }}
-{% endif %}
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
         /*
@@ -33,8 +29,8 @@
         // TEMPERATURE SENSOR
         var temperature_data = [
             {
-            label: "Temperature",
-            values: [ {time: (new Date()).getTime() / 1000, y: 0} ]
+                label: "Temperature",
+                values: [{time: (new Date()).getTime() / 1000, y: 0}]
             }
         ];
 
@@ -42,14 +38,14 @@
             type: 'time.line',
             data: temperature_data,
             axes: ['bottom', 'left'],
-            ticks: { time: 5, right: 5, left: 5 }
+            ticks: {time: 5, right: 5, left: 5}
         });
 
         // HUMIDITY SENSOR
         var humidity_data = [
             {
-            label: "Humidity",
-            values: [ {time: (new Date()).getTime() / 1000, y: 0} ]
+                label: "Humidity",
+                values: [{time: (new Date()).getTime() / 1000, y: 0}]
             }
         ];
 
@@ -57,14 +53,14 @@
             type: 'time.line',
             data: humidity_data,
             axes: ['bottom', 'left'],
-            ticks: { time: 5, right: 5, left: 5 }
+            ticks: {time: 5, right: 5, left: 5}
         });
 
         // MOVEMENT SENSOR
         var movement_data = [
             {
-            label: "Movement",
-            values: [ {time: (new Date()).getTime() / 1000, y: 0} ]
+                label: "Movement",
+                values: [{time: (new Date()).getTime() / 1000, y: 0}]
             }
         ];
 
@@ -72,7 +68,7 @@
             type: 'time.line',
             data: movement_data,
             axes: ['bottom', 'left'],
-            ticks: { time: 5, right: 5, left: 5 }
+            ticks: {time: 5, right: 5, left: 5}
         });
 
         /*
@@ -86,14 +82,12 @@
             const text = '(' + data['topic'] + ' qos: ' + data['qos'] + ') ' + data['payload'];
             $('#subscribe_messages').append(text + '<br><br>');
 
-            if(data['topic'] == "temperature") {
-                temperature_chart.push([ {time: (new Date()).getTime() / 1000, y: parseInt(data['payload'])} ]);
-            }
-            else if(data['topic'] == "humidity") {
+            if (data['topic'] == "temperature") {
+                temperature_chart.push([{time: (new Date()).getTime() / 1000, y: parseInt(data['payload'])}]);
+            } else if (data['topic'] == "humidity") {
                 humidity_chart.push([{time: (new Date()).getTime() / 1000, y: parseInt(data['payload'])}]);
-            }
-            else if(data['topic'] == "movement") {
-                movement_chart.push([ {time: (new Date()).getTime() / 1000, y: parseInt(data['payload'])} ]);
+            } else if (data['topic'] == "movement") {
+                movement_chart.push([{time: (new Date()).getTime() / 1000, y: parseInt(data['payload'])}]);
             }
         })
     });
