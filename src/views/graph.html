@@ -2,15 +2,30 @@
 
 {% block extra_css %}
 {{ super() }}
-<link href="{{ url_for('static', filename='epoch.min.css') }}" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='epoch.css') }}" rel="stylesheet"/>
+<style>
+    h3 {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    .lineBlue .category1 .line { stroke: dodgerblue; }
+    .lineOrange .category1 .line { stroke: orange; }
+    .lineGreen .category1 .line { stroke: forestgreen; }
+</style>
 {% endblock %}
 
 {% block content %}
 <h1>Graphs</h1>
 
-<div id="temperature_chart_div" class="epoch" style="width: 100%; height: 200px"></div>
-<div id="humidity_chart_div" class="epoch" style="width: 100%; height: 200px"></div>
-<div id="movement_chart_div" class="epoch" style="width: 100%; height: 200px"></div>
+<h3>Temperature</h3>
+<div id="temperature_chart_div" class="epoch lineBlue" style="width: 100%; height: 200px"></div>
+
+<h3>Humidity</h3>
+<div id="humidity_chart_div" class="epoch lineOrange" style="width: 100%; height: 200px"></div>
+
+<h3>Movement</h3>
+<div id="movement_chart_div" class="epoch lineGreen" style="width: 100%; height: 200px"></div>
 
 <div id="subscribe_messages"></div>
 {% endblock %}
@@ -77,12 +92,8 @@
          */
         const socket = io.connect('http://' + document.domain + ':' + location.port);
 
-        // listen for mqtt_message events
-        // when a new message is received, log and append the data to the page
+        // Listen for MQTT messages
         socket.on('mqtt_message', function (data) {
-            const text = '(' + data['topic'] + ' qos: ' + data['qos'] + ') ' + data['payload'];
-            $('#subscribe_messages').append(text + '<br><br>');
-
             if (data['topic'] == "temperature") {
                 temperature_chart.push([{time: (new Date()).getTime() / 1000, y: parseInt(data['payload'])}]);
             } else if (data['topic'] == "humidity") {
