@@ -46,7 +46,7 @@
         var temperature_data = [
             {
                 label: "Temperature",
-                values: [{time: (new Date()).getTime() / 1000, y: 0}]
+                values: []
             }
         ];
 
@@ -54,14 +54,15 @@
             type: 'time.line',
             data: temperature_data,
             axes: ['bottom', 'left'],
-            ticks: {time: 5, right: 5, left: 5}
+            ticks: {time: 5, right: 5, left: 5},
+            range: [0, 30]
         });
 
         // HUMIDITY SENSOR
         var humidity_data = [
             {
                 label: "Humidity",
-                values: [{time: (new Date()).getTime() / 1000, y: 0}]
+                values: []
             }
         ];
 
@@ -69,14 +70,15 @@
             type: 'time.line',
             data: humidity_data,
             axes: ['bottom', 'left'],
-            ticks: {time: 5, right: 5, left: 5}
+            ticks: {time: 5, right: 5, left: 5},
+            range: [0, 100]
         });
 
         // MOVEMENT SENSOR
         var movement_data = [
             {
                 label: "Movement",
-                values: [{time: (new Date()).getTime() / 1000, y: 0}]
+                values: []
             }
         ];
 
@@ -84,7 +86,8 @@
             type: 'time.line',
             data: movement_data,
             axes: ['bottom', 'left'],
-            ticks: {time: 5, right: 5, left: 5}
+            ticks: {time: 5, right: 5, left: 5},
+            range: [-1, 2]
         });
 
         /*
