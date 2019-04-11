@@ -6,6 +6,7 @@
   	<h1>No user logged in...</h1>
 	{% endif %}
     <p><a href={{ url_for('graph', username=username) }}>view graph</a>
+	<p><a href={{ url_for('sleep_recommendations', username=username)}}>view sleep recommendations</a></p>
     <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
 
 {% endblock %}

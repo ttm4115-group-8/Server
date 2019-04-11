@@ -79,6 +79,12 @@ def graph(username):
     return render_template('graph.html', username=username)
 
 
+@app.route('/user/<username>/sleep_recommendations')
+@login_required
+def sleep_recommendations(username):
+    return render_template('sleep_recommendations.html', username=username)
+
+
 @mqtt.on_log()
 def handle_logging(client, userdata, level, buf):
     print(level, buf)
