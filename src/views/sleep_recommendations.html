@@ -1,0 +1,23 @@
+{% extends "flask_user_layout.html" %}
+
+{% block extra_css %}
+{{ super() }}
+<link href="{{ url_for('static', filename='epoch.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<h1>Sleep recommendations</h1>
+<p>Here are some sleep recommendations based on our analysis.</p>
+<ol>
+    <li>It seems you are always going to bed after midnight. You should consider going to sleep earlier.</li>
+    <li>You are very often moving a lot between 6 and 7, so we think that's when you should be woken.</li>
+</ol>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{ url_for('static', filename='epoch.min.js') }}"></script>
+{% endblock %}
