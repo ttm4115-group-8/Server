@@ -5,7 +5,9 @@
 	{% else %}
   	<h1>No user logged in...</h1>
 	{% endif %}
-    <p><a href={{ url_for('graph', username=username) }}>view graph</a>
+    <p><a href={{ url_for('graph', username=username) }}>View graph</a>
+    <p><a href={{ url_for('edit_user', username=username) }}>Edit profile</a>
+
     <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
 
 {% endblock %}
