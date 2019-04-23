@@ -1,0 +1,28 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+  	<h1>Edit personal information</h1>
+	<form method="POST" action="/">
+		{{ form.hidden_tag() }}
+	    {{ form.csrf_token }}
+	    {{ form.name.label }} {{ form.name(size=20) }}
+	    <br/>
+
+	   	{{ form.age.label }} {{ form.age(size=20) }}
+	   	<br/>
+
+	    {{ form.height.label }} {{ form.height(size=20) }}
+	    <br/>
+
+	   	{{ form.gender.label }} {{ form.gender(size=20) }}
+	   	<br/>
+
+	    {{ form.email.label }} {{ form.email(size=20) }}
+	    <br/>
+
+	    {{ form.password.label }} {{ form.password(size=20) }}
+
+	    <input type="submit" value="Save">
+	</form>
+
+{% endblock %}

@@ -5,6 +5,8 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 # from users import User
 from flask_user import login_required, UserManager, UserMixin, current_user
+from user_form import Form
+from flask_wtf import FlaskForm
 
 eventlet.monkey_patch()
 
@@ -26,7 +28,7 @@ socketio = SocketIO(app)
 # Initialize Flask-SQLAlchemy
 db = SQLAlchemy(app)
 
-
+# TODO: Add user fields
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -83,6 +85,12 @@ def user_page(username='test'):
 @login_required
 def graph(username):
     return render_template('graph.html', username=username)
+
+@app.route('/user/<username>/edit_user')
+@login_required
+def edit_user(username):
+    form = Form()
+    return render_template('edit_user.html', current_user=current_user, form=form, username=username, wtf=FlaskForm)
 
 
 @app.route('/user/<username>/sleep_recommendations')
