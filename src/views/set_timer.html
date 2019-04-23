@@ -1,0 +1,23 @@
+{% extends "flask_user_layout.html" %}
+
+{% block extra_css %}
+{{ super() }}
+<link href="{{ url_for('static', filename='epoch.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<h1>Set timer</h1>
+<p>Here you can set a timer</p>
+<form action="{{url_for('handle_timer_data', username=username)}}" method="post" target="_self">
+    <input type="time" name="timer">
+    <input type="submit" value="Save">
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{ url_for('static', filename='epoch.min.js') }}"></script>
+{% endblock %}

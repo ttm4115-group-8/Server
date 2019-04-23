@@ -1,5 +1,5 @@
 import eventlet
-from flask import Flask, session, render_template, render_template_string
+from flask import Flask, session, render_template, render_template_string, request, redirect, url_for
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
@@ -60,6 +60,12 @@ def handle_mqtt_message(client, userdata, message):
         topic=message.topic,
         payload=message.payload.decode()
     )
+
+    if data['topic'] == "timer_request":
+        with open("timer.txt", "r") as file:
+            timer_str = file.readline()
+            mqtt.publish('timer_response', bytes(timer_str, 'utf-8'))
+
     # emit a mqtt_message event to the socket containing the message data
     socketio.emit('mqtt_message', data=data)
 
@@ -85,6 +91,28 @@ def graph(username):
 def edit_user(username):
     form = Form()
     return render_template('edit_user.html', current_user=current_user, form=form, username=username, wtf=FlaskForm)
+
+
+@app.route('/user/<username>/sleep_recommendations')
+@login_required
+def sleep_recommendations(username):
+    return render_template('sleep_recommendations.html', username=username)
+
+
+@app.route('/user/<username>/set_timer')
+@login_required
+def set_timer(username):
+    return render_template('set_timer.html', username=username)
+
+
+@app.route('/user/<username>/handle_timer_data', methods=['POST'])
+@login_required
+def handle_timer_data(username):
+    with open("timer.txt", "w") as file:
+        file.write(request.form['timer'])
+
+    # This is a ugly hack to get out of the redirect loop that happens
+    return render_template('home_page.html')
 
 
 @mqtt.on_log()
